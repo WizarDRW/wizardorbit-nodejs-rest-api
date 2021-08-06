@@ -1,0 +1,87 @@
+<html>
+
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <v-app>
+            <v-main>
+                <div class="alert">
+                    <v-alert v-if="error.status" type="error"> {{ error.message }} </v-alert>
+                </div>
+                <v-content>
+                    <v-container fluid fill-height>
+                        <v-layout align-center justify-center>
+                            <v-flex xs12 sm8 md4>
+                                <v-card light class="elevation-12">
+                                    <form>
+                                        <v-toolbar color="primary">
+                                            <v-toolbar-title style="color: white">Yönetici paneli girişi
+                                            </v-toolbar-title>
+                                        </v-toolbar>
+                                        <v-card-text>
+                                            <v-text-field prepend-icon="mdi-account" v-model="user.email" name="email"
+                                                label="Email Adresi" type="text"></v-text-field>
+                                            <v-text-field id="password" v-model="user.password" prepend-icon="mdi-lock"
+                                                name="password" label="Şifre" type="password"></v-text-field>
+                                        </v-card-text>
+                                        <v-card-actions>
+                                            <v-spacer></v-spacer>
+                                            <v-btn @click="login()" color="primary" :disabled="loading">
+                                                <v-progress-circular v-if="loading" :width="7" color="white"
+                                                    indeterminate>
+                                                </v-progress-circular>
+                                                Giriş
+                                            </v-btn>
+                                        </v-card-actions>
+                                    </form>
+                                </v-card>
+                            </v-flex>
+                        </v-layout>
+                    </v-container>
+                </v-content>
+            </v-main>
+        </v-app>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/vue-cookies@1.7.4/vue-cookies.js"></script>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            vuetify: new Vuetify(),
+            data: {
+                user: {
+                    email: "",
+                    password: "",
+                },
+                loading: false,
+                error: {
+                    status: false,
+                    message: "",
+                },
+            },
+            methods: {
+                async login() {
+                    this.loading = true;
+                    const apiClient = axios.create({
+                        baseURL: '/service/api/v1/auth'
+                    });
+                    var url = "/dologin"
+                    const res = await apiClient.post(url, this.user, { withCredentials: true })
+                    if (res) {
+                        window.location = "/"
+                    }
+                },
+            },
+        })
+    </script>
+</body>
+
+</html>
