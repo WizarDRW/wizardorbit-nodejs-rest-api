@@ -6,6 +6,16 @@ const dotenv = require('dotenv');
 var mongoose = require("mongoose");
 dotenv.config();
 
+/**
+ * A login params dto
+ * @tags library
+ * @typedef {object} LibraryDto - Library Client
+ * @property {string} name.required - Name
+ * @property {string} description - Description
+ * @property {string} image_path - Image Path
+ * @property {boolean} private.required - Private or Public
+ * @property {array<string>} contents - Contents
+ */
 class LibraryController {
     getAll = async (req, res, next) => {
         await Model.aggregate([{
