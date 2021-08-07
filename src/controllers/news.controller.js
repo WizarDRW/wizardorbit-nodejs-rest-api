@@ -8,6 +8,19 @@ const dotenv = require('dotenv');
 var mongoose = require("mongoose");
 dotenv.config();
 
+/**
+ * A login params dto
+ * @tags news
+ * @typedef {object} NewsDto - News Client
+ * @property {string} name.required - Name
+ * @property {string} image_path - Image Path
+ * @property {string} short_description - Short Description
+ * @property {string} create_date - Create Date
+ * @property {object} user_data - User Owner Data
+ * @property {array<object>} categories - Categories
+ * @property {array<object>} tags - Tags for SEO
+ * @property {array<object>} descriptions - Descriptions
+ */
 class NewsController {
     getAll = async (req, res, next) => {
         try {

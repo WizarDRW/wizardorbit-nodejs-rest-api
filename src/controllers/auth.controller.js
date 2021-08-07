@@ -16,12 +16,14 @@ dotenv.config();
 
 /**
  * A login params dto
+ * @tags auth
  * @typedef {object} LoginDto
  * @property {string} email.required - The Email
  * @property {string} password.required - The Password
  */
 /**
  * A login params dto
+ * @tags auth
  * @typedef {object} RegisterDto
  * @property {string} email.required - The Email
  * @property {string} password.required - The Password

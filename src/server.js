@@ -43,7 +43,7 @@ const store = new MongoDBSession({
 const options = {
     info: {
       version: '1.0.0',
-      title: 'Albums store',
+      title: "Wizard's Orbit",
       license: {
         name: 'MIT',
       },
@@ -53,6 +53,15 @@ const options = {
         type: 'http',
         scheme: 'basic',
       },
+      BearerAuth: {
+        type: 'http',
+        scheme: 'basic',
+      },
+      CookieAuth: {
+        type: 'apiKey',
+        in: 'header',
+        name: 'connect.sid'
+      }
     },
     baseDir: __dirname,
     // Glob pattern to find your jsdoc files (multiple patterns can be added in an array)

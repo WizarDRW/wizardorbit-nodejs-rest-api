@@ -8,6 +8,20 @@ const dotenv = require('dotenv');
 var mongoose = require("mongoose");
 dotenv.config();
 
+/**
+ * A login params dto
+ * @tags chapter
+ * @typedef {object} ChapterDto - Chapter Client
+ * @property {string} name.required - Name
+ * @property {string} image_path - Image Path
+ * @property {string} short_description - Short Description
+ * @property {string} create_date - Create Date
+ * @property {object} user_data - User Owner Data
+ * @property {array<object>} categories - Categories
+ * @property {array<object>} tags - Tags for SEO
+ * @property {array<object>} descriptions - Descriptions
+ */
+
 class ChapterController {
     getAll = async (req, res, next) => {
         await Model.aggregate([{
@@ -103,6 +117,7 @@ class ChapterController {
     };
 
     getFindAll = async (req, res, next) => {
+        console.log(req.params.text);
         Model.find({ name: { $regex: req.params.text, $options: 'i' } },
             function (err, posts) {
                 if (err) console.log(err);
