@@ -82,6 +82,7 @@ const options = {
     swaggerUiOptions: {},
     // multiple option in case you want more that one instance
     multiple: true,
+    docExpansion: "full"
   };
 
 // Init express

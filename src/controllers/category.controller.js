@@ -4,6 +4,13 @@ const { validationResult } = require('express-validator');
 const dotenv = require('dotenv');
 dotenv.config();
 
+/**
+ * A login params dto
+ * @tags category
+ * @typedef {object} CategoryDto - Category Client
+ * @property {string} type.required - Name
+ * @property {array<object>} categories - Image Path
+ */
 class CategoryController {
     getAll = async (req, res, next) => {
         Model.find(function (err, posts) {

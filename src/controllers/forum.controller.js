@@ -7,6 +7,27 @@ const dotenv = require('dotenv');
 var mongoose = require("mongoose");
 dotenv.config();
 
+/**
+ * A login params dto
+ * @tags forum
+ * @typedef {object} ForumDto - Forum Client
+ * @property {string} name.required - Name
+ * @property {string} create_date - Create Date
+ * @property {object} user_data - User Owner Data
+ * @property {array<object>} categories - Categories
+ * @property {array<object>} tags - Tags for SEO
+ * @property {string} description.required - Description
+ */
+/**
+ * A login params dto
+ * @tags forum
+ * @typedef {object} ForumCommentDto - Forum Client
+ * @property {string} user_id - User id
+ * @property {number} id - ID
+ * @property {number} comment_id - Comment id
+ * @property {string} description - Description
+ * @property {string} create_date - Create Date
+ */
 class ForumController {
     getAll = async (req, res, next) => {
         await Model.aggregate([{

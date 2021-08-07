@@ -1,6 +1,16 @@
 const Model = require("../models/draft.model")
 var mongoose = require("mongoose");
 
+/**
+ * A login params dto
+ * @tags draft
+ * @typedef {object} DraftDto - Draft
+ * @property {string} user_id.required - User id
+ * @property {string} create_date - Create Date
+ * @property {string} update_date - Update Date
+ * @property {string} type - Type
+ * @property {object} data - Data
+ */
 class DraftController {
     getAll = async (req, res, next) => {
         await Model.aggregate([{
