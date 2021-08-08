@@ -23,6 +23,7 @@ ApiService.init(process.env.AI_SERVICE)
  * @property {array<object>} descriptions - Descriptions
  */
 
+/** */
 class ChapterController {
     getAll = async (req, res, next) => {
         await Model.aggregate([{
@@ -127,13 +128,12 @@ class ChapterController {
 
     getAllTop = async (req, res, next) => {
         var data = await Model.aggregate([
-            { "$sort": { "finalTotal": -1 } },
-            { "$limit": Number(req.params.count) }]);
+            { "$sort": { "finalTotal": -1 } }]);
         var data = {
-            chapters: data
+            chapters: data,
+            limit: parseInt(req.params.count)
         }
         var result = (await ApiService.post(`chapter/`, data))
-
         res.send(result.data)
     };
 

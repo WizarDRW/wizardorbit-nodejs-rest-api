@@ -3,9 +3,11 @@ var UserOptionModel = require("../models/useroption.model")
 const HttpException = require('../utils/HttpException.utils');
 const { validationResult } = require('express-validator');
 const userRole = require("../utils/userRoles.utils")
+const ApiService = require("../services/api.service")
 const dotenv = require('dotenv');
 var mongoose = require("mongoose");
 dotenv.config();
+ApiService.init(process.env.AI_SERVICE)
 
 /**
  * A login params dto
@@ -164,12 +166,14 @@ class ForumController {
     };
 
     getAllTop = async (req, res, next) => {
-        Model.aggregate([
-            { "$sort": { "finalTotal": -1 } },
-            { "$limit": Number(req.params.count) }])
-            .exec(function (err, result) {
-                res.send(result);
-            });
+        var data = await Model.aggregate([
+            { "$sort": { "finalTotal": -1 } }]);
+        var data = {
+            chapters: data,
+            limit: parseInt(req.params.count)
+        }
+        var result = (await ApiService.post(`chapter/`, data))
+        res.send(result.data)
     };
 
     getById = async (req, res, next) => {
