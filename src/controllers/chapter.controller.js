@@ -3,11 +3,12 @@ const HttpException = require('../utils/HttpException.utils');
 const { validationResult } = require('express-validator');
 const userRole = require("../utils/userRoles.utils")
 const googleDriveService = require("../utils/googledrive.utils.js");
+const ApiService = require("../services/api.service")
 var urlParser = require('url-parse');
 const dotenv = require('dotenv');
 var mongoose = require("mongoose");
 dotenv.config();
-
+ApiService.init(process.env.AI_SERVICE)
 /**
  * A login params dto
  * @tags chapter
@@ -117,7 +118,6 @@ class ChapterController {
     };
 
     getFindAll = async (req, res, next) => {
-        console.log(req.params.text);
         Model.find({ name: { $regex: req.params.text, $options: 'i' } },
             function (err, posts) {
                 if (err) console.log(err);
@@ -126,12 +126,15 @@ class ChapterController {
     };
 
     getAllTop = async (req, res, next) => {
-        Model.aggregate([
+        var data = await Model.aggregate([
             { "$sort": { "finalTotal": -1 } },
-            { "$limit": Number(req.params.count) }])
-            .exec(function (err, result) {
-                res.send(result);
-            });
+            { "$limit": Number(req.params.count) }]);
+        var data = {
+            chapters: data
+        }
+        var result = (await ApiService.post(`chapter/`, data))
+
+        res.send(result.data)
     };
 
     getById = async (req, res, next) => {
