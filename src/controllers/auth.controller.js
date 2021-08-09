@@ -83,7 +83,6 @@ class AuthController {
         });
     }
     doLogin = async (req, res, next) => {
-        console.log(req.body);
         const { email, password: pass } = req.body;
 
         var user = null;

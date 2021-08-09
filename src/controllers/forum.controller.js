@@ -169,10 +169,10 @@ class ForumController {
         var data = await Model.aggregate([
             { "$sort": { "finalTotal": -1 } }]);
         var data = {
-            chapters: data,
+            contents: data,
             limit: parseInt(req.params.count)
         }
-        var result = (await ApiService.post(`chapter/`, data))
+        var result = (await ApiService.post(`info-content/`, data))
         res.send(result.data)
     };
 
