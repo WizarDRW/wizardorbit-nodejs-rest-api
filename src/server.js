@@ -97,8 +97,8 @@ app.use(cookieParser());
 app.use(session({
     secret: process.env.SECRET_JWT,
     cookie: {
-        // domain: '.wizardorbit.com;',
-        domain: 'localhost',
+        domain: '.wizardorbit.com;',
+        // domain: 'localhost',
         maxAge: 24 * 60 * 60 * 1000,
     },
     saveUninitialized: false,
