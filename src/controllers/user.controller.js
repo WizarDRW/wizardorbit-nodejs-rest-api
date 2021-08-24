@@ -15,10 +15,6 @@ dotenv.config();
  *                              User Controller
  ******************************************************************************/
 class UserController {
-    verify = async (req, res, next) => {
-        res.send(true);
-    };
-
     getAllUsers = async (req, res, next) => {
         var result = await Model.aggregate([
             {
@@ -87,11 +83,6 @@ class UserController {
             .exec(function (err, result) {
                 res.send(result);
             });
-    };
-
-    getCurrentUser = async (req, res, next) => {
-        const { password, ...userWithoutPassword } = req.currentUser._doc;
-        res.send({ ...userWithoutPassword });
     };
 
     create = async (req, res, next) => {

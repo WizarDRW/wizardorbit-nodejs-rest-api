@@ -13,18 +13,23 @@ const {
     validateResetPassword,
     validateStatus
 } = require('../middleware/validators/userValidator.middleware');
+const { authBoolean } = require('../utils/boolean.utils');
 
 
 /**
  * GET /api/v1/auth/verify
  * @tags auth
- * @security BasicAuth
  * @summary This is the summary of the endpoint
- * @return {object} 200 - true
- * @example response - 200 - success response example
- * true
+ * @return {object} 200 - current user or guest
  */
-router.get('/verify', auth(), awaitHandlerFactory(controller.verify));
+router.get('/verify', authBoolean, auth(), awaitHandlerFactory(controller.verify));
+/**
+ * GET /api/v1/auth/whoami
+ * @tags auth
+ * @summary This is the summary of the endpoint
+ * @return {object} 200 - current user or guest
+ */
+router.get('/whoami', authBoolean, auth(), awaitHandlerFactory(controller.verify));
 /**
  * POST /api/v1/auth/register
  * @tags auth
