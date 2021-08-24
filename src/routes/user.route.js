@@ -19,7 +19,6 @@ router.get('/urlgoogle', awaitHandlerFactory(googleAuth.getUrl));
 router.get('/profile/:username', awaitHandlerFactory(userController.getUserProfile));
 router.get('/id/:id', auth(), awaitHandlerFactory(userController.getUserById));
 router.get('/username/:username', auth(), awaitHandlerFactory(userController.getUserByMail));
-router.get('/whoami', auth(), awaitHandlerFactory(userController.getCurrentUser));
 router.post('/', auth(Role.SuperUser), createUserSchema, awaitHandlerFactory(userController.create));
 router.post('/resetPassword/:id', auth(), validateResetPassword, awaitHandlerFactory(userController.resetPassword));
 router.put('/id/:id', auth(), updateUserSchema, awaitHandlerFactory(userController.updateUser));
